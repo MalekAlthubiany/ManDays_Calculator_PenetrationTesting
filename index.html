@@ -14,6 +14,7 @@
 </head>
 <body>
   <h1>Manday Calculator</h1>
+  <p><a href="#reference-table">📘 View Reference Table</a></p>
 
   <label for="serviceType">Choose a Service</label>
   <select id="serviceType">
@@ -100,5 +101,33 @@
       `;
     }
   </script>
+<hr>
+  <h2 id="reference-table">📘 Reference Table</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr><th>Service</th><th>User Input</th><th>Base Mandays</th><th>Per Unit</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>UnAuthenticated Network Penetration Testing</td><td>Number of Assets</td><td>4.25</td><td>per 100</td></tr>
+      <tr><td>Authenticated Network Penetration Testing</td><td>Number of Assets</td><td>6.4</td><td>per 100</td></tr>
+      <tr><td>UnAuthenticated Vulnerability Assessment</td><td>Number of Assets</td><td>4.25</td><td>per 100</td></tr>
+      <tr><td>Authenticated Vulnerability Assessment</td><td>Number of Assets</td><td>5.2</td><td>per 100</td></tr>
+      <tr><td>WiFi Penetration Testing</td><td>Number of SSIDs</td><td>8.33</td><td>per 10</td></tr>
+      <tr><td>WAPT (GreyBox)</td><td>Number of Functions</td><td>8</td><td>per 100</td></tr>
+      <tr><td>WAPT (BlackBox)</td><td>Number of Functions</td><td>5.5</td><td>per 100</td></tr>
+      <tr><td>MAPT (GreyBox)</td><td>Number of Functions</td><td>7</td><td>per 50</td></tr>
+      <tr><td>MAPT (BlackBox)</td><td>Number of Functions</td><td>5.25</td><td>per 50</td></tr>
+      <tr><td>Source Code Review</td><td>Lines of Code</td><td>5.75</td><td>per 20,000</td></tr>
+      <tr><td>API Penetration Testing (Authenticated)</td><td>Number of Endpoints</td><td>6.8</td><td>per 50</td></tr>
+      <tr><td>API Penetration Testing (UnAuthenticated)</td><td>Number of Endpoints</td><td>4.6</td><td>per 50</td></tr>
+      <tr><td>Configuration Review</td><td>Number of Devices</td><td>8.25</td><td>per 10</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Additional Overheads:</strong></p>
+  <ul>
+    <li><strong>Reporting Phase:</strong> 1 day (≤ 3), 1.5 days (≤ 7), 2 days (> 7)</li>
+    <li><strong>Review & Authorization:</strong> Always 1.5 days</li>
+    <li><strong>Buffer:</strong> Always 1 day</li>
+  </ul>
 </body>
 </html>
