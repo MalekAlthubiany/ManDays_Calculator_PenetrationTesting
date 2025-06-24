@@ -3,67 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Manday Calculator</title>
+  <title>Manday Calculator</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    label, select, input, button { display: block; width: 100%; margin: 10px 0; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    label, select, input, button { display: block; margin: 10px 0; width: 100%; }
+    .row { display: flex; justify-content: space-between; align-items: center; }
+    .right-label { margin-left: 10px; font-size: 0.9em; color: #555; }
     #results { margin-top: 20px; font-weight: bold; }
   </style>
 </head>
 <body>
   <h1>Manday Calculator</h1>
 
-  <label for="serviceType">Type of Service</label>
+  <label for="serviceType">Choose a Service</label>
   <select id="serviceType">
     <option value="">Select...</option>
-    <option value="WAPT">WAPT</option>
-    <option value="VA">VA</option>
-    <option value="NPT">NPT</option>
+    <option value="npt-unauth">UnAuthenticated Network Penetration Testing</option>
+    <option value="npt-auth">Authenticated Network Penetration Testing</option>
+    <option value="va-unauth">UnAuthenticated Vulnerability Assessment</option>
+    <option value="va-auth">Authenticated Vulnerability Assessment</option>
+    <option value="wifi">WiFi Penetration Testing</option>
+    <option value="wapt-grey">WAPT (GreyBox)</option>
+    <option value="wapt-black">WAPT (BlackBox)</option>
+    <option value="mapt-grey">mAPT (GreyBox)</option>
+    <option value="mapt-black">mAPT (BlackBox)</option>
+    <option value="code-review">Source Code Review</option>
+    <option value="api-auth">API Penetration Testing (Authenticated)</option>
+    <option value="api-unauth">API Penetration Testing (UnAuthenticated)</option>
+    <option value="config-review">Configuration Review</option>
   </select>
 
-  <div id="options"></div>
+  <div class="row">
+    <label id="dynamicLabel" for="quantity"></label>
+    <span class="right-label">Man-day = 8 hours</span>
+  </div>
+  <input type="number" id="quantity" min="1" style="display:none">
 
   <button onclick="calculateMandays()">Calculate</button>
   <div id="results"></div>
 
   <script>
-    const optionsDiv = document.getElementById('options');
+    const serviceInput = document.getElementById('serviceType');
+    const label = document.getElementById('dynamicLabel');
+    const quantityInput = document.getElementById('quantity');
 
-    document.getElementById('serviceType').addEventListener('change', function () {
-      const type = this.value;
-      let html = '';
-      if (type === 'WAPT') {
-        html += '<label>Type of Testing</label>';
-        html += '<select id="testType"><option>BlackBox</option><option>GreyBox</option></select>';
-        html += '<label>Number of Functions</label><input type="number" id="functions" min="1">';
-        html += '<label>Number of Applications</label><input type="number" id="applications" min="1">';
-      } else if (type === 'VA' || type === 'NPT') {
-        html += '<label>Type of Testing</label>';
-        html += '<select id="testType"><option>UnAuthenticated</option><option>Authenticated</option></select>';
-        html += '<label>Number of IPs</label><input type="number" id="ips" min="1">';
-        html += '<label>Number of Assets</label><input type="number" id="assets" min="1">';
+    const services = {
+      'npt-unauth':    { label: 'Number of Assets', base: 4.25, per: 100 },
+      'npt-auth':      { label: 'Number of Assets', base: 6.4, per: 100 },
+      'va-unauth':     { label: 'Number of Assets', base: 4.25, per: 100 },
+      'va-auth':       { label: 'Number of Assets', base: 5.2, per: 100 },
+      'wifi':          { label: 'Number of SSIDs', base: 8.33, per: 10 },
+      'wapt-grey':     { label: 'Number of Functions', base: 8, per: 100 },
+      'wapt-black':    { label: 'Number of Functions', base: 5.5, per: 100 },
+      'mapt-grey':     { label: 'Number of Functions', base: 7, per: 50 },
+      'mapt-black':    { label: 'Number of Functions', base: 5.25, per: 50 },
+      'code-review':   { label: 'Lines of Code', base: 5.75, per: 20000 },
+      'api-auth':      { label: 'Number of Endpoints', base: 6.8, per: 50 },
+      'api-unauth':    { label: 'Number of Endpoints', base: 4.6, per: 50 },
+      'config-review': { label: 'Number of Devices', base: 8.25, per: 10 }
+    };
+
+    serviceInput.addEventListener('change', function () {
+      const val = this.value;
+      if (services[val]) {
+        label.innerText = services[val].label;
+        quantityInput.style.display = 'block';
+      } else {
+        label.innerText = '';
+        quantityInput.style.display = 'none';
       }
-      optionsDiv.innerHTML = html;
     });
 
     function calculateMandays() {
-      const serviceType = document.getElementById('serviceType').value;
-      const testType = document.getElementById('testType')?.value;
-      let result = 0;
-
-      if (serviceType === 'WAPT') {
-        const functions = parseInt(document.getElementById('functions').value);
-        const applications = parseInt(document.getElementById('applications').value);
-        if (testType === 'BlackBox') result = (functions / 50) * 5 * applications;
-        if (testType === 'GreyBox') result = (functions / 50) * 6 * applications;
-      } else if (serviceType === 'VA' || serviceType === 'NPT') {
-        const ips = parseInt(document.getElementById('ips').value);
-        const assets = parseInt(document.getElementById('assets').value);
-        if (testType === 'UnAuthenticated') result = (ips / 100) * 5 * assets;
-        if (testType === 'Authenticated') result = (ips / 100) * 7 * assets;
+      const type = serviceInput.value;
+      const qty = parseFloat(quantityInput.value);
+      if (!services[type] || isNaN(qty) || qty <= 0) {
+        document.getElementById('results').innerText = 'Please enter a valid quantity.';
+        return;
       }
 
-      document.getElementById('results').innerText = `Estimated Mandays: ${Math.ceil(result)} days (including reporting)`;
+      const base = services[type].base;
+      const per = services[type].per;
+
+      const rawMandays = (qty / per) * base;
+      const reporting = rawMandays <= 3 ? 1 : rawMandays <= 7 ? 1.5 : 2;
+      const review = 1.5;
+      const buffer = 1;
+      const total = rawMandays + reporting + review + buffer;
+
+      document.getElementById('results').innerHTML = `
+        <p>Calculated Mandays (execution): <strong>${rawMandays.toFixed(2)}</strong></p>
+        <p>+ Reporting phase: <strong>${reporting} day(s)</strong></p>
+        <p>+ Review & Authorization: <strong>${review} day(s)</strong></p>
+        <p>+ Buffer: <strong>${buffer} day(s)</strong></p>
+        <p><strong>Total: ${total.toFixed(2)} mandays</strong></p>
+      `;
     }
   </script>
 </body>
