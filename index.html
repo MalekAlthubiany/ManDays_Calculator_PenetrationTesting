@@ -25,9 +25,8 @@
     <option value="wifi">WiFi Penetration Testing</option>
     <option value="wapt-grey">WAPT (GreyBox)</option>
     <option value="wapt-black">WAPT (BlackBox)</option>
-    <option value="mapt-grey">mAPT (GreyBox)</option>
-    <option value="mapt-black">mAPT (BlackBox)</option>
-    <option value="code-review">Source Code Review</option>
+    <option value="MAPT-grey">MAPT (GreyBox)</option>
+    <option value="MAPT-black">MAPT (BlackBox)</option></option>
     <option value="api-auth">API Penetration Testing (Authenticated)</option>
     <option value="api-unauth">API Penetration Testing (UnAuthenticated)</option>
     <option value="config-review">Configuration Review</option>
@@ -55,8 +54,8 @@
       'wifi':          { label: 'Number of SSIDs', base: 8.33, per: 10 },
       'wapt-grey':     { label: 'Number of Functions', base: 8, per: 100 },
       'wapt-black':    { label: 'Number of Functions', base: 5.5, per: 100 },
-      'mapt-grey':     { label: 'Number of Functions', base: 7, per: 50 },
-      'mapt-black':    { label: 'Number of Functions', base: 5.25, per: 50 },
+      'mapt-grey':     { label: 'Number of Functions', ba'MAPT-grey' 50 },
+      'mapt-black':    { label: 'Number of Functions', ba'MAPT-black'r: 50 },
       'code-review':   { label: 'Lines of Code', base: 5.75, per: 20000 },
       'api-auth':      { label: 'Number of Endpoints', base: 6.8, per: 50 },
       'api-unauth':    { label: 'Number of Endpoints', base: 4.6, per: 50 },
@@ -92,12 +91,10 @@
       const total = rawMandays + reporting + review + buffer;
 
       document.getElementById('results').innerHTML = `
-        <p>Calculated Mandays (Testing): <strong>${rawMandays.toFixed(2)}</strong></p>
-        <p>+ Reporting phase: <strong>${reporting} day(s)</strong></p>
+        <p>Calculated Mandays (Testing): <strong>${rawMandays.Calculated Mandays (Testing):  <p>+ Reporting phase: <strong>${reporting} day(s)</strong></p>
         <p>+ Review & Authorization: <strong>${review} day(s)</strong></p>
         <p>+ Buffer: <strong>${buffer} day(s)</strong></p>
-        <p><strong>Total: ${total.toFixed(2)} mandays</strong></p>
-      `;
+        <p><strong>Total: ${total.toFixed(2)} mandays Approx ${Math.rounTotal: ${total.toFixed(2)} mandays Approx ${Math.round(total)} Mandays   `;
     }
   </script>
 </body>
