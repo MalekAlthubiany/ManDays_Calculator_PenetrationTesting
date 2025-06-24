@@ -93,10 +93,10 @@
 
       document.getElementById('results').innerHTML = `
         <p>Calculated Mandays (Testing): <strong>${rawMandays.toFixed(2)}</strong></p>
-        <p>+ Reporting phase: <strong>${reporting} day(s)</strong></p>
+        <p>+ Reporting phase: <strong>${reporting} day(s) ${reporting === 1 ? 'Smallsized' : reporting === 1.5 ? 'Midsized' : 'Largesized'} engagment</strong></p>
         <p>+ Review & Authorization: <strong>${review} day(s)</strong></p>
         <p>+ Buffer: <strong>${buffer} day(s)</strong></p>
-        <p><strong>Total: ${total.toFixed(2)} mandays Approx ${Math.round(total)} Mandays</strong></p>
+        <p><strong>Total: <span style='color:red'>${total.toFixed(2)}</span> mandays Approx ${Math.round(total)} Mandays</strong></p>
       `;
     }
   </script>
